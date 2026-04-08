@@ -31,8 +31,12 @@ export default function Dashboard({ onQuizGenerated }: DashboardProps) {
           } else {
             onQuizGenerated(quiz);
           }
-        } catch (err) {
-          setError("Failed to process image. Make sure it contains clear MCQs.");
+        } catch (err: any) {
+          if (err.message === 'API_KEY_MISSING') {
+            setError("API Key is missing. Please set VITE_GEMINI_API_KEY in Netlify settings.");
+          } else {
+            setError("Failed to process image. Make sure it contains clear MCQs.");
+          }
           console.error(err);
         } finally {
           setIsProcessing(false);
