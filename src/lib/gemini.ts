@@ -1,9 +1,14 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Quiz } from "../types";
 
-const apiKey = (import.meta as any).env.VITE_GEMINI_API_KEY || '';
+const getApiKey = () => {
+  const env = (import.meta as any).env;
+  // Try Vite env first, then process.env (for some environments)
+  return env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '') || '';
+};
 
 export async function extractQuizFromDocument(base64Data: string, mimeType: string): Promise<Quiz> {
+  const apiKey = getApiKey();
   if (!apiKey) {
     throw new Error('API_KEY_MISSING');
   }
