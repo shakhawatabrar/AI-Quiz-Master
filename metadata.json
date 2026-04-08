@@ -1,0 +1,7 @@
+{
+  "name": "AI Quiz Master",
+  "description": "Generate professional board-exam style quizzes from images of questions using Google Gemini AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
